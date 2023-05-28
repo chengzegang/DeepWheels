@@ -1,14 +1,12 @@
 from __future__ import annotations
 
-from typing import Tuple
-
 import torch
-from pykeops.torch import LazyTensor  # type: ignore
 from torch import nn
 
-from .kmeans import KMeans  # type: ignore
+from .kmeans import KMeans
 
 from .sift import SIFT
+from torch import Tensor
 
 
 class VLAD(nn.Module):
@@ -77,10 +75,10 @@ class VLAD(nn.Module):
             self._populations.data += pops.sum(0)
             self._centroids.data += desc_sums.sum(0)
 
-        residuals = residuals / torch.linalg.matrix_norm(
+        res: Tensor = residuals / torch.linalg.matrix_norm(
             residuals, dim=(-1, -2), ord=2, keepdim=True
         )
-        return residuals
+        return res
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.residuals(x)

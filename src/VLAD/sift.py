@@ -13,6 +13,7 @@ from kornia.feature import (
 )
 from kornia.geometry import RANSAC, ConvQuadInterp3d, ScalePyramid
 from torch import nn  # type: ignore
+import torch.nn.functional as F
 
 
 class SIFT(nn.Module):
@@ -52,6 +53,7 @@ class SIFT(nn.Module):
             patches = extract_patches_from_pyramid(x, lafs, self.patch_size)
             B, N, CH, H, W = patches.size()
             descs = self.descriptor(patches.view(B * N, CH, H, W)).view(B, N, -1)
+            descs = F.normalize(descs, dim=-1, p=2)
             return descs  # type: ignore
 
     def forward(
