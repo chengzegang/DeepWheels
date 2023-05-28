@@ -28,8 +28,9 @@ class VGGBlock(Module):
         self.bn = BatchNorm2d(out_channels)
 
     def forward(self, x: Tensor) -> Tensor:
-        x = self.bn(F.relu(self.conv(x)))
-        return x
+        res: Tensor = self.bn(F.relu(self.conv(x)))
+
+        return res
 
 
 class VGGBackbone(Module):
@@ -64,8 +65,8 @@ class VGGBackbone(Module):
         x = self.pool3(x)
 
         x = self.conv4_1(x)
-        x = self.conv4_2(x)
-        return x
+        res: Tensor = self.conv4_2(x)
+        return res
 
 
 class Detector(Module):

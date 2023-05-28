@@ -12,7 +12,7 @@ from kornia.feature import (
     extract_patches_from_pyramid,
     get_laf_center,
 )
-import torchvision.transforms.functional as TF  # type: ignore
+import torchvision.transforms.functional as TF
 from PIL import Image
 from kornia.geometry import ConvQuadInterp3d, ScalePyramid
 from torch.nn import Module
