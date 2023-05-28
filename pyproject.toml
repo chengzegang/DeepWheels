@@ -1,0 +1,44 @@
+
+[project]
+name = "DeepWheels"
+version = "0.1.0"
+description = "My reinvention of deep-learning related wheels"
+authors = [
+    {name = "Zegang Cheng", email = "zc2309@nyu.edu"},
+]
+dependencies = [
+    'torch>=2.0.0',
+    'torchvision',
+    'kornia',
+    'pot',
+    'pykeops',
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+[[tool.mypy.overrides]]
+module = [
+    "torch.*",
+    "torchvision.*",
+    "pykeops.*",
+    "torchdata.*",
+    "cudf.*",
+    "cugraph.*",
+    "matplotlib.*",
+    "roma.*",
+    "torch-scatter.*",
+    "torch_scatter.*",
+    "ot.*",
+    "torch_geometric.*",
+]
+ignore_missing_imports = true
+
